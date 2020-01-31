@@ -4,10 +4,9 @@ import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.apache.v2.ApacheHttpTransport;
-import com.google.common.io.CharStreams;
+import com.google.common.io.ByteStreams;
 import com.google.common.net.MediaType;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
@@ -53,7 +52,7 @@ public class GoogleHttpClientMain {
         .setHeaders(new HttpHeaders().setBasicAuthentication(username, password))
         .execute();
 
-    String json = CharStreams.toString(new InputStreamReader(res.getContent(), StandardCharsets.UTF_8));
+    String json = new String(ByteStreams.toByteArray(res.getContent()), StandardCharsets.UTF_8);
     Matcher m = Pattern.compile("\"token\"\\s*:\\s*\"([^\"]+)\"").matcher(json);
     m.find();
     return m.group(1); // don't show this in public

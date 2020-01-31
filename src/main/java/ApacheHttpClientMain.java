@@ -1,9 +1,8 @@
 import com.google.api.client.util.Base64;
 import com.google.api.client.util.StringUtils;
-import com.google.common.io.CharStreams;
+import com.google.common.io.ByteStreams;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
@@ -64,7 +63,7 @@ public class ApacheHttpClientMain {
       HttpGet req = new HttpGet(authUrl);
       req.setHeader("Authorization", "Basic " + Base64.encodeBase64String(StringUtils.getBytesUtf8(username + ':' + password)));
       try (CloseableHttpResponse res = client.execute(req)) {
-        String json = CharStreams.toString(new InputStreamReader(res.getEntity().getContent(), StandardCharsets.UTF_8));
+        String json = new String(ByteStreams.toByteArray(res.getEntity().getContent()), StandardCharsets.UTF_8);
         Matcher m = Pattern.compile("\"token\"\\s*:\\s*\"([^\"]+)\"").matcher(json);
         m.find();
         return m.group(1); // don't show this in public
