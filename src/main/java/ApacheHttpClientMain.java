@@ -75,7 +75,7 @@ public class ApacheHttpClientMain {
     HttpPost req = new HttpPost(uploadInitUrl);
     req.setHeader("Authorization", "Bearer " + authToken);
     try (CloseableHttpClient client = HttpClients.createDefault();
-        CloseableHttpResponse res = client.execute(req)) {
+         CloseableHttpResponse res = client.execute(req)) {
       return res.getFirstHeader("Location").getValue();
     }
   }
