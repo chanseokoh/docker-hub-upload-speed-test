@@ -47,39 +47,36 @@ public class ApacheHttpClientMain {
 
     System.out.println("start timing uploading 40MB to Docker Hub...");
     long started = System.nanoTime();
-    try (CloseableHttpClient client = HttpClients.createDefault()) {
-      HttpPatch req = new HttpPatch(uploadUrl);
-      req.setHeader("Authorization", "Bearer " + authToken);
-      req.setEntity(new RandoContent(40));
-      try (CloseableHttpResponse res = client.execute(req)) { }
-    }
+    HttpPatch req = new HttpPatch(uploadUrl);
+    req.setHeader("Authorization", "Bearer " + authToken);
+    req.setEntity(new RandoContent(40));
+    try (CloseableHttpClient client = HttpClients.createDefault();
+         CloseableHttpResponse res = client.execute(req)) { }
     System.out.println("elapsed (s): " + (System.nanoTime() - started) / 100000000L / 10.);
   }
 
   private static String getAuthToken(String repository, String username, String password) throws IOException {
     System.out.println("requesting bearer auth token from Docker Hub...");
     String authUrl = "https://auth.docker.io/token?service=registry.docker.io&scope=repository:" + repository + ":pull,push";
-    try (CloseableHttpClient client = HttpClients.createDefault()) {
-      HttpGet req = new HttpGet(authUrl);
-      req.setHeader("Authorization", "Basic " + Base64.encodeBase64String(StringUtils.getBytesUtf8(username + ':' + password)));
-      try (CloseableHttpResponse res = client.execute(req)) {
-        String json = new String(ByteStreams.toByteArray(res.getEntity().getContent()), StandardCharsets.UTF_8);
-        Matcher m = Pattern.compile("\"token\"\\s*:\\s*\"([^\"]+)\"").matcher(json);
-        m.find();
-        return m.group(1); // don't show this in public
-      }
+    HttpGet req = new HttpGet(authUrl);
+    req.setHeader("Authorization", "Basic " + Base64.encodeBase64String(StringUtils.getBytesUtf8(username + ':' + password)));
+    try (CloseableHttpClient client = HttpClients.createDefault();
+         CloseableHttpResponse res = client.execute(req)) {
+      String json = new String(ByteStreams.toByteArray(res.getEntity().getContent()), StandardCharsets.UTF_8);
+      Matcher m = Pattern.compile("\"token\"\\s*:\\s*\"([^\"]+)\"").matcher(json);
+      m.find();
+      return m.group(1); // don't show this in public
     }
   }
 
   private static String getUploadUrl(String repository, String authToken) throws IOException {
     System.out.println("get upload URL...");
     String uploadInitUrl = "https://registry-1.docker.io/v2/" + repository + "/blobs/uploads/";
-    try (CloseableHttpClient client = HttpClients.createDefault()) {
-      HttpPost req = new HttpPost(uploadInitUrl);
-      req.setHeader("Authorization", "Bearer " + authToken);
-      try (CloseableHttpResponse res = client.execute(req)) {
-        return res.getFirstHeader("Location").getValue();
-      }
+    HttpPost req = new HttpPost(uploadInitUrl);
+    req.setHeader("Authorization", "Bearer " + authToken);
+    try (CloseableHttpClient client = HttpClients.createDefault();
+        CloseableHttpResponse res = client.execute(req)) {
+      return res.getFirstHeader("Location").getValue();
     }
   }
 }
