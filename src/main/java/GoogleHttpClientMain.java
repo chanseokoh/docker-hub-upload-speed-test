@@ -15,9 +15,9 @@ import java.util.regex.Pattern;
 
 public class GoogleHttpClientMain {
 
-  static class RandoContent implements HttpContent {
-    int megaBytes;
-    RandoContent(int megaBytes) { this.megaBytes = megaBytes; }
+  private static class RandoContent implements HttpContent {
+    private int megaBytes;
+    private RandoContent(int megaBytes) { this.megaBytes = megaBytes; }
     @Override public long getLength() throws IOException { return megaBytes * 1024 * 1024; }
     @Override public String getType() { return MediaType.OCTET_STREAM.toString(); }
     @Override public boolean retrySupported() { return true; }
@@ -28,7 +28,7 @@ public class GoogleHttpClientMain {
     }
   }
 
-  static HttpRequestFactory reqFactory = new ApacheHttpTransport().createRequestFactory();
+  private static HttpRequestFactory reqFactory = new ApacheHttpTransport().createRequestFactory();
 
   public static void main(String[] args) throws IOException {
     String username = "Not this file. Change ApacheHttpClientMain.java";

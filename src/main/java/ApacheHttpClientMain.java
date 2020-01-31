@@ -1,9 +1,6 @@
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.apache.v2.ApacheHttpTransport;
 import com.google.api.client.util.Base64;
 import com.google.api.client.util.StringUtils;
 import com.google.common.io.CharStreams;
-import com.google.common.net.MediaType;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -11,39 +8,35 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPatch;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.AbstractHttpEntity;
+import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicHeader;
 
 public class ApacheHttpClientMain {
 
-  static class RandoContent implements HttpEntity {
-    int megaBytes;
-    RandoContent(int megaBytes) { this.megaBytes = megaBytes; }
-    @Override public boolean isRepeatable() { return false; }
-    @Override public boolean isChunked() { return false; }
-    @Override public long getContentLength() { return megaBytes * 1024 * 1024; }
-    @Override public Header getContentType() { return new BasicHeader("Content-Type", MediaType.OCTET_STREAM.toString()); }
-    @Override public Header getContentEncoding() { return null; }
-    @Override public InputStream getContent() throws IOException, UnsupportedOperationException {
-      throw new UnsupportedOperationException();
+  private static class RandoContent extends AbstractHttpEntity {
+    private int megaBytes;
+    private RandoContent(int megaBytes) {
+      this.megaBytes = megaBytes;
+      setContentType(ContentType.APPLICATION_OCTET_STREAM.toString());
     }
+    @Override public boolean isRepeatable() { return false; }
+    @Override public boolean isStreaming() { return false; }
+    @Override public long getContentLength() { return megaBytes * 1024 * 1024; }
     @Override public void writeTo(OutputStream out) throws IOException {
       byte[] rando = new byte[1024];
       for (int i = 0; i < megaBytes * 1024; i++) out.write(rando);
       out.flush();
     }
-    @Override public boolean isStreaming() { return false; }
-    @Override public void consumeContent() throws IOException {}
+    @Override public InputStream getContent() throws IOException, UnsupportedOperationException {
+      throw new UnsupportedOperationException();
+    }
   }
-
-  static HttpRequestFactory reqFactory = new ApacheHttpTransport().createRequestFactory();
 
   public static void main(String[] args) throws IOException {
     String username = "nithin4325";
