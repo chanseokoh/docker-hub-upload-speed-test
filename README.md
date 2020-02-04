@@ -3,9 +3,9 @@
 This repository provides three ways to test upload speed to Docker Hub
    1. Using Java [Google HTTP Client](https://github.com/googleapis/google-http-java-client).
    2. Using Java [Apache HttpClient](https://hc.apache.org/httpcomponents-client-4.5.x/index.html).
-   3. Using [`curl`](https://curl.haxx.se/) (Bash).
+   3. Using [`curl`](https://curl.haxx.se/) with Bash.
 
-## Uploading random 40MB to Docker Hub using Google HTTP Client
+## Uploading random 40MB to Docker Hub using [Google HTTP Client](https://github.com/googleapis/google-http-java-client)
 
    1. Update Docker Hub account and repository information in [`GoogleHttpClientMain.java`](src/main/java/GoogleHttpClientMain.java).
       ```java
@@ -22,7 +22,7 @@ This repository provides three ways to test upload speed to Docker Hub
       $ mvn exec:java -Dexec.mainClass=GoogleHttpClientMain
       ```
 
-## Uploading random 40MB to Docker Hub using Apache HttpClient:
+## Uploading random 40MB to Docker Hub using [Apache HttpClient](https://hc.apache.org/httpcomponents-client-4.5.x/index.html):
 
    1. Update Docker Hub account and repository information in [`ApacheHttpClientMain.java`](src/main/java/ApacheHttpClientMain.java).
       ```java
@@ -39,7 +39,7 @@ This repository provides three ways to test upload speed to Docker Hub
       $ mvn exec:java -Dexec.mainClass=ApacheHttpClientMain
       ```
 
-## Uploading using Bash:
+## Uploading using [`curl`](https://curl.haxx.se/) with Bash:
 
    1. Run the [`push_blob_test.sh`](push_blob_test.sh) script and follow the prompts.
    
@@ -63,7 +63,7 @@ This repository provides three ways to test upload speed to Docker Hub
                                        Dload  Upload   Total   Spent    Left  Speed
         0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
  
-      >>> Got push location: https://registry-1.docker.io/v2/francium25/test/blobs/uploads/b7fba65e-9b1c-4ca9-915d-a0f378550df4?_state=_ZzacFZa7VckJYV3aijBIM2ZDjfIPJ0ytY13xkKTx6J7Ik5hbWUiOiJmcmFuY2l1bTI1L3Rlc3QiLCJVVUlEIjoiYjdmYmE2NWUtOWIxYy00Y2E5LTkxNWQtYTBmMzc4NTUwZGY0IiwiT2Zmc2V0IjowLCJTdGFydGVkQXQiOiIyMDIwLTAyLTA0VDE2OjU2OjM3LjYzODY5MTQyWiJ9
+      >>> Got push location: https://registry-1.docker.io/v2/francium25/test/blobs/uploads/...
  
       Now pushing a BLOb: ./40mb.file
  
