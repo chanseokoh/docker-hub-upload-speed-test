@@ -16,7 +16,7 @@ This repository provides three ways to test upload speed to Docker Hub
       $ mvn exec:java -Dexec.mainClass=GoogleHttpClientMain
       ```
 
-## Uploading using Apache HttpClient:
+## Uploading random 40MB to Docker Hub using Apache HttpClient:
 
    1. Update Docker Hub account and repository information in [`ApacheHttpClientMain.java`](src/main/java/ApacheHttpClientMain.java).
    2. Compile first.

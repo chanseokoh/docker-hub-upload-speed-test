@@ -30,9 +30,9 @@ public class GoogleHttpClientMain {
   private static HttpRequestFactory reqFactory = new ApacheHttpTransport().createRequestFactory();
 
   public static void main(String[] args) throws IOException {
-    String username = "Not this file. Change ApacheHttpClientMain.java";
-    String password = "Not this file. Change ApacheHttpClientMain.java";
-    String dockerHubRepo = "Not this file. Change ApacheHttpClientMain.java";
+    String username      = YOUR DOCKER HUB ACCOUNT
+    String password      = YOUR DOCKER HUB PASSWORD
+    String dockerHubRepo = YOUR DOCKER HUB TEST REPO (e.g., myaccount/myrepo)
 
     String authToken = getAuthToken(dockerHubRepo, username, password), // don't show this in public
            uploadUrl = getUploadUrl(dockerHubRepo, authToken);

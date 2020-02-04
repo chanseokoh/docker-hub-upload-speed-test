@@ -38,9 +38,9 @@ public class ApacheHttpClientMain {
   }
 
   public static void main(String[] args) throws IOException {
-    String username = "nithin4325";
-    String password = YOUR PASSWORD
-    String dockerHubRepo = "nithin4325/demo";
+    String username      = YOUR DOCKER HUB ACCOUNT
+    String password      = YOUR DOCKER HUB PASSWORD
+    String dockerHubRepo = YOUR DOCKER HUB TEST REPO (e.g., myaccount/myrepo)
 
     String authToken = getAuthToken(dockerHubRepo, username, password), // don't show this in public
            uploadUrl = getUploadUrl(dockerHubRepo, authToken);
