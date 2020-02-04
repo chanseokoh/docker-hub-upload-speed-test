@@ -1,13 +1,19 @@
 # Docker Hub Upload Speed Test
 
 This repository provides three ways to test upload speed to Docker Hub
-   1. Using Java Google HTTP Client.
-   2. Using Java Apache HttpClient.
-   3. Using Bash.
+   1. Using Java [Google HTTP Client](https://github.com/googleapis/google-http-java-client).
+   2. Using Java [Apache HttpClient](https://hc.apache.org/httpcomponents-client-4.5.x/index.html).
+   3. Using [`curl`](https://curl.haxx.se/) (Bash).
 
 ## Uploading random 40MB to Docker Hub using Google HTTP Client
 
    1. Update Docker Hub account and repository information in [`GoogleHttpClientMain.java`](src/main/java/GoogleHttpClientMain.java).
+      ```java
+        public static void main(String[] args) throws IOException {
+          String username      = YOUR DOCKER HUB ACCOUNT
+          String password      = YOUR DOCKER HUB PASSWORD
+          String dockerHubRepo = YOUR DOCKER HUB TEST REPO (e.g., myaccount/myrepo)
+      ```
    2. Compile first.
       ```
       $ mvn compile
@@ -19,6 +25,12 @@ This repository provides three ways to test upload speed to Docker Hub
 ## Uploading random 40MB to Docker Hub using Apache HttpClient:
 
    1. Update Docker Hub account and repository information in [`ApacheHttpClientMain.java`](src/main/java/ApacheHttpClientMain.java).
+      ```java
+        public static void main(String[] args) throws IOException {
+          String username      = YOUR DOCKER HUB ACCOUNT
+          String password      = YOUR DOCKER HUB PASSWORD
+          String dockerHubRepo = YOUR DOCKER HUB TEST REPO (e.g., myaccount/myrepo)
+      ```
    2. Compile first.
       ```
       $ mvn compile
