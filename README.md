@@ -1,6 +1,6 @@
 # Docker Hub Upload Speed Test
 
-This repository provides three ways to test upload speed to Docker Hub
+This repository provides three ways to test upload speed for Docker Hub.
    1. Using Java [Google HTTP Client](https://github.com/googleapis/google-http-java-client).
    2. Using Java [Apache HttpClient](https://hc.apache.org/httpcomponents-client-4.5.x/index.html).
    3. Using [`curl`](https://curl.haxx.se/) with Bash.
