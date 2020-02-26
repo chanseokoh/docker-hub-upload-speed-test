@@ -35,24 +35,24 @@
 
   "layers": [
     {
-      "files": [
+      "entries": [
         {
-          "src": "/home/workspace/bin/Main.class",
+          "src": "/home/jane/workspace/bin/Main.class",
           "dest": "/app/classes/Main.class",
           "modificationTime": "2019-07-15T10:15:30+09:00",
           "permissions": "600",
         },
         {
-          "src": "/home/workspace/bin/Lib.class",
-          "dest": "/app/classes/Lib.class",
+          "src": "/home/jane/libs/util-1.0.jar",
+          "dest": "/app/jars/util.jar",
           "modificationTime": "2011-12-03T22:42:05Z",
         }
       ]
     },
     {
-      "layerArchive": {
+      "archive": {
         "mediaType": "...",
-        "path": "...",
+        "path": "/tmp/",
       }
     },
     {
@@ -144,13 +144,13 @@
 
 ### Layer Configuration Object
 
-`entries` and `layerArchive` cannot be defined together.
+`entries` and `archive` cannot be defined together.
 
 * `entries`: array of Layer Entry objects
 
    Collection of files as a layer.
 
-* `layerArchive`
+* `archive`
 
    To be implemented. Allows specifying a (local or remote) archive file representing a layer.
    
