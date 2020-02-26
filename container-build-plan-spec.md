@@ -52,7 +52,7 @@
     {
       "archive": {
         "mediaType": "...",
-        "path": "/tmp/",
+        "path": "/home/jane/misc/cacerts.tar",
       }
     },
     {
