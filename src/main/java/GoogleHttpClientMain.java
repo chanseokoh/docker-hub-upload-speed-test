@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 public class GoogleHttpClientMain {
 
+/*
   private static class RandoContent implements HttpContent {
     private int megaBytes;
     private RandoContent(int megaBytes) { this.megaBytes = megaBytes; }
@@ -26,10 +27,16 @@ public class GoogleHttpClientMain {
       out.flush();
     }
   }
+*/
 
   private static HttpRequestFactory reqFactory = new ApacheHttpTransport().createRequestFactory();
 
   public static void main(String[] args) throws IOException {
+    HttpResponse res = reqFactory.buildGetRequest(new GenericUrl(args[0])).execute();
+    res.disconnect(); // Will this fail as in Jib 3.1.3?
+    System.out.println("Didn't fail :(");
+
+    /*
     String username      = YOUR DOCKER HUB ACCOUNT
     String password      = YOUR DOCKER HUB PASSWORD
     String dockerHubRepo = YOUR DOCKER HUB TEST REPO (e.g., myaccount/myrepo)
@@ -43,8 +50,10 @@ public class GoogleHttpClientMain {
         .setHeaders(new HttpHeaders().setAuthorization("Bearer " + authToken))
         .execute();
     System.out.println("elapsed (s): " + (System.nanoTime() - started) / 100000000L / 10.);
+    */
   }
 
+/*
   private static String getAuthToken(String repository, String username, String password) throws IOException {
     System.out.println("requesting bearer auth token from Docker Hub...");
     String authUrl = "https://auth.docker.io/token?service=registry.docker.io&scope=repository:" + repository + ":pull,push";
@@ -66,4 +75,5 @@ public class GoogleHttpClientMain {
         .execute();
     return res.getHeaders().getLocation();
   }
+  */
 }
